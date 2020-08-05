@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2018",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@core/db": ["libs/db/src"],
+      "@core/db/*": ["libs/db/src/*"],
+      "@core/storage": ["libs/storage/src"],
+      "@core/storage/*": ["libs/storage/src/*"],
+      "@core/common": ["libs/common/src"],
+      "@core/common/*": ["libs/common/src/*"],
+      "@core/mail": ["libs/mail/src"],
+      "@core/mail/*": ["libs/mail/src/*"],
+      "@core/activity-log": ["libs/activity-log/src"],
+      "@core/activity-log/*": ["libs/activity-log/src/*"],
+      "@core/auth": ["libs/auth/src"],
+      "@core/auth/*": ["libs/auth/src/*"],
+      "@core/access-control": ["libs/access-control/src"],
+      "@core/access-control/*": ["libs/access-control/src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"],
+  "extends": "../tsconfig.json"
+}

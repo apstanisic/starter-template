@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  cache:
+    image: redis:5-alpine
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+
+  # Database
+  db:
+    image: mariadb:10
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./volumes/mariadb:/var/lib/mysql
+
+  # CMS
+  directus:
+    image: directus/directus:v8-apache
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      DIRECTUS_ENV: "development"
+      #
+      DIRECTUS_AUTH_PUBLICKEY: ${CMS_PUBLICKEY}
+      DIRECTUS_AUTH_SECRETKEY: ${CMS_SECRETKEY}
+      # Use db from this file (currently fixed, change file for outside db)
+      DIRECTUS_DATABASE_HOST: db
+      DIRECTUS_DATABASE_PORT: ${DB_PORT}
+      DIRECTUS_DATABASE_NAME: ${DB_DATABASE}
+      DIRECTUS_DATABASE_USERNAME: ${DB_USER}
+      DIRECTUS_DATABASE_PASSWORD: ${DB_PASSWORD}
+      # Email
+      DIRECTUS_MAIL_DEFAULT_FROM: ${EMAIL_USER}
+      DIRECTUS_MAIL_DEFAULT_HOST: ${EMAIL_HOST}
+      DIRECTUS_MAIL_DEFAULT_PORT: ${EMAIL_PORT}
+      DIRECTUS_MAIL_DEFAULT_USERNAME: ${EMAIL_USER}
+      DIRECTUS_MAIL_DEFAULT_PASSWORD: ${EMAIL_PASSWORD}
+      # S3 Storage
+      DIRECTUS_STORAGE_ADAPTER: "s3"
+      DIRECTUS_STORAGE_KEY: ${STORAGE_ACCESS_KEY}
+      DIRECTUS_STORAGE_SECRET: ${STORAGE_SECRET_KEY}
+      DIRECTUS_STORAGE_REGION: ${STORAGE_REGION}
+      DIRECTUS_STORAGE_VERSION: "latest"
+      DIRECTUS_STORAGE_BUCKET: ${STORAGE_BUCKET_NAME}
+      DIRECTUS_STORAGE_ENDPOINT: ${STORAGE_ENDPOINT}
+      DIRECTUS_STORAGE_ROOTURL: ${CMS_S3_ROOT_URL}
+      DIRECTUS_STORAGE_ROOT: "/nadji-auto-files"
+      DIRECTUS_STORAGE_THUMBROOT: "/nadji-auto-files/generated"
+
+    links:
+      - db:db
+      - cache:cache

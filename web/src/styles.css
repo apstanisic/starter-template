@@ -1,0 +1,21 @@
+/* PostCSS will convert this to tailwind classes */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Center inside item */
+.center {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+/* Show swall on top always */
+.swal2-container {
+  z-index: 3000 !important;
+}

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "declaration": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "sourceMap": true,
+    "incremental": true,
+    "pretty": true,
+    "allowJs": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    // Maybe
+    "preserveConstEnums": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}

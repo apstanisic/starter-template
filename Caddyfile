@@ -1,0 +1,14 @@
+# Web app (in productin it's www.example.com)
+:1001 {
+  reverse_proxy 127.0.0.1:3000
+}
+
+# API (in productin it's api.example.com)
+:1002 {
+  reverse_proxy 127.0.0.1:4000
+}
+
+# CMS (in productin it's admin.example.com)
+:1003 {
+  reverse_proxy 127.0.0.1:8080
+}
